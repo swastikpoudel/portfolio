@@ -1,301 +1,40 @@
-/* Import futuristic fonts */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600&display=swap');
-
-/* Reset and global styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: 'Exo 2', sans-serif;
-  color: #e0e0e0;
-  background: #0a0a1a;
-  overflow-x: hidden;
-  position: relative;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+    color: #333;
 }
-
-/* Parallax background effect */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('https://source.unsplash.com/random/1920x1080?cyberpunk') no-repeat center/cover;
-  opacity: 0.2;
-  z-index: -1;
-  transform: translateZ(-1px) scale(1.1);
-}
-
-/* Container */
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-/* Header and Navigation */
 header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(10, 10, 26, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 15px 0;
-}
-
-nav ul {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  list-style: none;
-}
-
-nav ul li {
-  margin: 0 20px;
-}
-
-nav ul li a {
-  color: #00ffcc;
-  text-decoration: none;
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 400;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  position: relative;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-nav ul li a:hover {
-  color: #ff007a;
-  text-shadow: 0 0 10px #ff007a, 0 0 20px #ff007a;
-}
-
-/* Hero/About Section */
-#about {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 100px 20px;
-  position: relative;
-}
-
-#about .container {
-  max-width: 700px;
-  background: rgba(0, 255, 204, 0.1);
-  padding: 40px;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 255, 204, 0.3);
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
-  transform: rotate(-2deg);
-}
-
-#about h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 3.5rem;
-  color: #00ffcc;
-  text-shadow: 0 0 15px #00ffcc;
-  margin-bottom: 20px;
-}
-
-#about p {
-  font-size: 1.3rem;
-  color: #b0b0ff;
-  line-height: 1.7;
-}
-
-/* Projects Section */
-#projects {
-  padding: 100px 20px;
-  position: relative;
-}
-
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 40px;
-  perspective: 1000px;
-}
-
-.project-card {
-  background: rgba(20, 20, 50, 0.9);
-  border: 1px solid #00ffcc;
-  border-radius: 15px;
-  padding: 25px;
-  text-align: center;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
-  transform: rotateY(5deg);
-}
-
-.project-card:hover {
-  transform: rotateY(0deg) translateY(-15px);
-  box-shadow: 0 0 30px rgba(0, 255, 204, 0.4);
-}
-
-.project-card img {
-  max-width: 100%;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  filter: brightness(0.9);
-}
-
-.project-card h3 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.8rem;
-  color: #ff007a;
-  text-shadow: 0 0 10px #ff007a;
-  margin-bottom: 15px;
-}
-
-.project-card p {
-  font-size: 1.1rem;
-  color: #e0e0e0;
-}
-
-/* Contact Section */
-#contact {
-  padding: 100px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#contact form {
-  max-width: 600px;
-  width: 100%;
-  background: rgba(20, 20, 50, 0.95);
-  padding: 30px;
-  border-radius: 15px;
-  border: 1px solid #ff007a;
-  box-shadow: 0 0 25px rgba(255, 0, 122, 0.3);
-  transform: translateY(20px);
-  transition: transform 0.5s ease;
-}
-
-#contact form:hover {
-  transform: translateY(0);
-}
-
-#contact input,
-#contact textarea {
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  font-size: 1.1rem;
-  margin-bottom: 15px;
-  width: 100%;
-  transition: box-shadow 0.3s ease;
-}
-
-#contact input:focus,
-#contact textarea:focus {
-  box-shadow: 0 0 10px #00ffcc;
-  outline: none;
-}
-
-#contact textarea {
-  resize: vertical;
-  min-height: 150px;
-}
-
-#contact button {
-  background: linear-gradient(45deg, #00ffcc, #ff007a);
-  border: none;
-  padding: 15px;
-  border-radius: 8px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.2rem;
-  color: #ffffff;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-#contact button:hover {
-  box-shadow: 0 0 15px #00ffcc;
-  transform: scale(1.03);
-}
-
-/* Back to Top Button */
-#back-to-top {
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
-  background: linear-gradient(45deg, #00ffcc, #ff007a);
-  color: #ffffff;
-  border: none;
-  border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.5rem;
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
-  transition: transform 0.3s ease;
-}
-
-#back-to-top:hover {
-  transform: rotate(360deg);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  nav ul {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  nav ul li {
-    margin: 10px;
-  }
-
-  #about .container {
-    transform: rotate(0deg);
+    text-align: center;
     padding: 20px;
-  }
-
-  #about h1 {
-    font-size: 2.5rem;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .project-card {
-    transform: rotateY(0deg);
-  }
+    background-color: #007bff;
+    color: white;
 }
-
-@media (max-width: 480px) {
-  #about h1 {
-    font-size: 1.8rem;
-  }
-
-  #about p {
-    font-size: 1rem;
-  }
-
-  .project-card h3 {
-    font-size: 1.4rem;
-  }
-
-  #contact form {
-    padding: 20px;
-  }
-
-  #contact input,
-  #contact textarea,
-  #contact button {
-    font-size: 1rem;
-  }
+h1 {
+    margin: 0;
+    font-size: 2em;
+}
+h2 {
+    color: #007bff;
+}
+section {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    margin: 10px 0;
+}
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
 }
