@@ -117,8 +117,6 @@
 <section id="contact">
     <h2>Reach Out</h2>
 
-    <img src="me.jpg" alt="Swastik Poudel" width="120">
-
     <form id="contact-form">
         <label>Your Name</label>
         <input type="text" name="name" required>
@@ -133,40 +131,37 @@
     </form>
 
     <p id="status"></p>
-
-    <p>
-        Instagram:
-        <a href="https://instagram.com/swastik__poudel" target="_blank">
-            @swastik__poudel
-        </a>
-    </p>
 </section>
 
 <footer>
     © 2025 Swastik Poudel
 </footer>
 
-<!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<!-- ✅ NEW EmailJS SDK (IMPORTANT) -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
 (function () {
-    emailjs.init("R64jyQhjF8L6EJJSC");
+    emailjs.init({
+        publicKey: "R64jyQhjF8L6EJJSC"
+    });
 })();
 
 document.getElementById("contact-form").addEventListener("submit", function (e) {
     e.preventDefault();
 
     emailjs.sendForm(
-        "service_a7u7wel",
+        "service_8rxdfop",
         "template_ik4do6t",
         this
-    ).then(function () {
-        document.getElementById("status").innerText = "✅ Message sent successfully!";
-        document.getElementById("contact-form").reset();
-    }, function (error) {
-        document.getElementById("status").innerText = "❌ Failed to send message. Try again.";
-        console.error(error);
+    ).then(() => {
+        document.getElementById("status").innerText =
+            "✅ Message sent successfully!";
+        this.reset();
+    }).catch((error) => {
+        document.getElementById("status").innerText =
+            "❌ Failed to send message.";
+        console.error("EmailJS Error:", error);
     });
 });
 </script>
