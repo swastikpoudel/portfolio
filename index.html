@@ -37,7 +37,61 @@
 
   <div>
     <h2>Reach Out</h2>
-    <p>Email: <a href="mailto:swastik.poudel.2@gmail.com">swastik.poudel.2@gmail.com</a></p>
+    <form 
+  action="https://formsubmit.co/contact@swastikpoudel.com.np" 
+  method="POST" 
+  class="space-y-6"
+>
+    <!-- FormSubmit settings -->
+    <input type="hidden" name="_subject" value="New message from swastikpoudel.com.np">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+
+    <!-- Name -->
+    <div>
+        <label class="block text-sm font-medium mb-2 text-gray-300">Your Name</label>
+        <input 
+            type="text" 
+            name="name" 
+            required 
+            class="w-full px-4 py-3 bg-gray-900/50 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 text-white"
+            placeholder="John Doe"
+        >
+    </div>
+
+    <!-- Email -->
+    <div>
+        <label class="block text-sm font-medium mb-2 text-gray-300">Your Email</label>
+        <input 
+            type="email" 
+            name="email" 
+            required 
+            class="w-full px-4 py-3 bg-gray-900/50 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 text-white"
+            placeholder="john@example.com"
+        >
+    </div>
+
+    <!-- Message -->
+    <div>
+        <label class="block text-sm font-medium mb-2 text-gray-300">Your Message</label>
+        <textarea 
+            name="message" 
+            rows="5" 
+            required 
+            class="w-full px-4 py-3 bg-gray-900/50 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 text-white resize-none"
+            placeholder="Tell me about your project or just say hi!"
+        ></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button 
+        type="submit" 
+        class="w-full px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg font-medium hover:shadow-lg hover:shadow-purple-500/50 transition-all flex items-center justify-center gap-2"
+    >
+        Send Message
+    </button>
+</form>
+com</a></p>
     <p>Instagram: <a href="https://instagram.com/swastik__poudel" target="_blank">@swastik__poudel</a></p>
   </div>
 </div>
