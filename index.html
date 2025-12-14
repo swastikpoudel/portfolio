@@ -1,70 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Swastik Poudel | Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swastik Poudel | Portfolio</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-    }
-    header {
-      background: #111827;
-      color: white;
-      padding: 30px;
-      text-align: center;
-    }
-    section {
-      max-width: 800px;
-      margin: auto;
-      padding: 30px;
-    }
-    #contact {
-      background: white;
-      border-radius: 8px;
-      padding: 30px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-    }
-    button {
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 12px;
-      cursor: pointer;
-    }
-    #status {
-      margin-top: 15px;
-      font-weight: bold;
-    }
-  </style>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
+  color: #333;
+}
+header {
+  background: #111827;
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+section {
+  max-width: 900px;
+  margin: auto;
+  padding: 30px;
+}
+h2 {
+  margin-bottom: 10px;
+}
+#contact {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+}
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+}
+button:hover {
+  background: #1e40af;
+}
+#status {
+  margin-top: 15px;
+  font-weight: bold;
+}
+img {
+  width: 120px;
+  border-radius: 50%;
+}
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+</style>
 </head>
 
 <body>
 
 <header>
   <h1>Swastik Poudel</h1>
-  <p>BSc CSIT Student</p>
+  <p>BSc CSIT Student | Aspiring Developer</p>
 </header>
 
+<section>
+  <h2>About Me</h2>
+  <p>
+    I'm Swastik Poudel, a Bachelor of Computer Science & Information Technology (BSc CSIT)
+    student from Nepal, studying at Patan Multiple Campus.
+    I’m passionate about coding, design, and building meaningful digital experiences.
+  </p>
+</section>
+
+<section>
+  <h2>Projects</h2>
+  <ul>
+    <li>Personal Portfolio Website</li>
+    <li>
+      <strong>Bank Management System (C++)</strong><br>
+      <a href="https://github.com/swastikpoudel/portfolio/blob/main/bank%20management%20system.cpp" target="_blank">
+        View Code on GitHub
+      </a>
+    </li>
+    <li>More projects coming soon…</li>
+  </ul>
+</section>
+
 <section id="contact">
-  <h2>Contact Me</h2>
+  <h2>Reach Out</h2>
+
+  <img src="me.jpg" alt="Swastik Poudel">
 
   <form id="contact-form">
-    <input type="text" name="name" placeholder="Your Name" required />
-    <input type="email" name="email" placeholder="Your Email" required />
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
     <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
     <button type="submit">Send Message</button>
   </form>
 
   <p id="status"></p>
+
+  <p>
+    Instagram:
+    <a href="https://instagram.com/swastik__poudel" target="_blank">
+      @swastik__poudel
+    </a>
+  </p>
 </section>
+
+<footer>
+  © 2025 Swastik Poudel
+</footer>
 
 <!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
@@ -88,9 +140,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("status").innerText = "✅ Message sent successfully!";
         document.getElementById("contact-form").reset();
       },
-      function (error) {
+      function () {
         document.getElementById("status").innerText = "❌ Failed to send message.";
-        console.error(error);
       }
     );
   });
