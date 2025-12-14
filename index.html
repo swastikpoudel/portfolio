@@ -3,34 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swastik Poudel's Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Swastik Poudel | Portfolio</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f6f8;
+            color: #333;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        section {
+            padding: 30px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        #contact {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #1e40af;
+        }
+
+        #status {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        img {
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
 </head>
+
 <body>
 
 <header>
     <h1>Swastik Poudel</h1>
+    <p>BSc CSIT Student | Aspiring Developer</p>
 </header>
 
-<section id="about">
+<section>
     <h2>About Me</h2>
     <p>
-        I'm Swastik Poudel, a Bachelor of Computer Science & Information Technology (BSc CSIT) student from Nepal, studying at Patan Multiple Campus.
-        I am passionate about coding, design, and building meaningful digital experiences.
+        I'm Swastik Poudel, a Bachelor of Computer Science & Information Technology (BSc CSIT)
+        student from Nepal, studying at Patan Multiple Campus.
+        I’m passionate about coding, design, and building meaningful digital experiences.
     </p>
 </section>
 
-<section id="projects">
+<section>
     <h2>Projects</h2>
     <ul>
         <li>Personal Portfolio Website</li>
         <li>
             <strong>Bank Management System (C++)</strong><br>
             <a href="https://github.com/swastikpoudel/portfolio/blob/main/bank%20management%20system.cpp" target="_blank">
-                View Code on GitHub
+                View C++ Code on GitHub
             </a>
         </li>
-        <li>More projects coming soon!</li>
+        <li>More projects coming soon…</li>
     </ul>
 </section>
 
@@ -39,22 +119,20 @@
 
     <img src="me.jpg" alt="Swastik Poudel" width="120">
 
-    <form action="https://formsubmit.co/swastik.poudel.2@gmail.com" method="POST">
-        <!-- FormSubmit settings -->
-        <input type="hidden" name="_subject" value="New message from portfolio">
-        <input type="hidden" name="_captcha" value="false">
+    <form id="contact-form">
+        <label>Your Name</label>
+        <input type="text" name="name" required>
 
-        <label>Your Name</label><br>
-        <input type="text" name="name" required><br><br>
+        <label>Your Email</label>
+        <input type="email" name="email" required>
 
-        <label>Your Email</label><br>
-        <input type="email" name="email" required><br><br>
-
-        <label>Your Message</label><br>
-        <textarea name="message" rows="5" required></textarea><br><br>
+        <label>Your Message</label>
+        <textarea name="message" rows="5" required></textarea>
 
         <button type="submit">Send Message</button>
     </form>
+
+    <p id="status"></p>
 
     <p>
         Instagram:
@@ -63,6 +141,35 @@
         </a>
     </p>
 </section>
+
+<footer>
+    © 2025 Swastik Poudel
+</footer>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+(function () {
+    emailjs.init("R64jyQhjF8L6EJJSC");
+})();
+
+document.getElementById("contact-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    emailjs.sendForm(
+        "service_a7u7wel",
+        "template_ik4do6t",
+        this
+    ).then(function () {
+        document.getElementById("status").innerText = "✅ Message sent successfully!";
+        document.getElementById("contact-form").reset();
+    }, function (error) {
+        document.getElementById("status").innerText = "❌ Failed to send message. Try again.";
+        console.error(error);
+    });
+});
+</script>
 
 </body>
 </html>
