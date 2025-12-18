@@ -1,7 +1,7 @@
 const form = document.getElementById("contact-form");
 
 form.addEventListener("submit", async (e) => {
-  e.preventDefault(); // stop page reload
+  e.preventDefault();
 
   const formData = new FormData(form);
 
@@ -12,13 +12,16 @@ form.addEventListener("submit", async (e) => {
   };
 
   try {
-    const res = await fetch("http://localhost:5000/api/client", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch(
+      "https://swastik-v2-backend.onrender.com/api/client",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
     const result = await res.json();
 
