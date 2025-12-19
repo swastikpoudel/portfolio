@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Messages</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #fff;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .card {
+      background: #1e293b;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+    .name {
+      font-weight: bold;
+      color: #38bdf8;
+    }
+    .phone {
+      font-size: 14px;
+      color: #cbd5f5;
+    }
+    .message {
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>📩 Client Messages</h1>
+<div id="messages"></div>
+
+<script>
+  fetch("https://swastik-v2-backend.onrender.com/api/client")
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("messages");
+
+      if (data.length === 0) {
+        container.innerHTML = "<p>No messages yet.</p>";
+        return;
+      }
+
+      data.forEach(client => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+          <div class="name">${client.name}</div>
+          <div class="phone">${client.phone}</div>
+          <div class="message">${client.message}</div>
+        `;
+        container.appendChild(div);
+      });
+    })
+    .catch(err => {
+      document.getElementById("messages").innerText =
+        "Failed to load messages";
+      console.error(err);
+    });
+</script>
+
+</body>
+</html>
