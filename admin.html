@@ -36,59 +36,61 @@
 
 <h1>📩 Client Messages</h1>
 <div id="messages"></div>
-<script>
-  const password = prompt("Enter admin password:");
 
-  if (password !== "Swastik#1763") {
-    document.body.innerHTML = "<h2>❌ Access Denied</h2>";
-    throw new Error("Unauthorized");
+
+
+<script>
+fetch("https://swastik-v2-backend.onrender.com/api/client", {
+  headers: {
+    "x-admin-secret": "Swastik#1763"
   }
-</script>
+})
+.then(res => {
+  if (!res.ok) throw new Error("Unauthorized");
+  return res.json();
+})
+.then(data => {
+  const container = document.getElementById("messages");
 
+  if (data.length === 0) {
+    container.innerHTML = "<p>No messages yet.</p>";
+    return;
+  }
 
-<script>
-  fetch("https://swastik-v2-backend.onrender.com/api/client")
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById("messages");
+  data.forEach(client => {
+    const div = document.createElement("div");
+    div.className = "card";
 
-      if (data.length === 0) {
-        container.innerHTML = "<p>No messages yet.</p>";
-        return;
-      }
+    const date = new Date(client.createdAt);
 
-      data.forEach(client => {
-        const div = document.createElement("div");
-        div.className = "card";
-        const date = new Date(client.createdAt);
-
-// Convert to Nepali time
-const nepaliTime = date.toLocaleString("en-GB", {
-  timeZone: "Asia/Kathmandu",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-  hour12: true
-});
-
-div.innerHTML = `
-  <div class="name">${client.name}</div>
-  <div class="phone">${client.phone}</div>
-  <div class="message">${client.message}</div>
-  <div class="time">🕒 ${nepaliTime} (NST)</div>
-`;
-
-        container.appendChild(div);
-      });
-    })
-    .catch(err => {
-      document.getElementById("messages").innerText =
-        "Failed to load messages";
-      console.error(err);
+    // Nepali Standard Time
+    const nepaliTime = date.toLocaleString("en-GB", {
+      timeZone: "Asia/Kathmandu",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true
     });
+
+    div.innerHTML = `
+      <div class="name">${client.name}</div>
+      <div class="phone">${client.phone}</div>
+      <div class="message">${client.message}</div>
+      <div class="time">🕒 ${nepaliTime} (NST)</div>
+    `;
+
+    container.appendChild(div);
+  });
+})
+.catch(err => {
+  document.getElementById("messages").innerText =
+    "Failed to load messages ❌";
+  console.error(err);
+});
 </script>
+
 
 </body>
 </html>
