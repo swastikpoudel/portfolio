@@ -36,6 +36,15 @@
 
 <h1>📩 Client Messages</h1>
 <div id="messages"></div>
+<script>
+  const password = prompt("Enter admin password:");
+
+  if (password !== "Swastik#1763") {
+    document.body.innerHTML = "<h2>❌ Access Denied</h2>";
+    throw new Error("Unauthorized");
+  }
+</script>
+
 
 <script>
   fetch("https://swastik-v2-backend.onrender.com/api/client")
