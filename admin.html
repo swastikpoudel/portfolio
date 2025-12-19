@@ -42,8 +42,9 @@
 <script>
 fetch("https://swastik-v2-backend.onrender.com/api/client", {
   headers: {
-    "x-admin-secret": "Swastik#1763"
-  }
+  "X-Admin-Secret": "Swastik#1763"
+}
+
 })
 .then(res => {
   if (!res.ok) throw new Error("Unauthorized");
