@@ -30,16 +30,22 @@
     .message {
       margin-top: 8px;
     }
+    .time {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
   </style>
 </head>
 <body>
 
 <h1>📩 Client Messages</h1>
-<div id="messages"></div>
+<div id="messages">Loading...</div>
+
 <script>
 fetch("https://swastik-v2-backend.onrender.com/api/client", {
   headers: {
-    "X-Admin-Secret":"swastik1763"
+    "X-Admin-Secret": "swastik1763"
   }
 })
 .then(res => {
@@ -47,6 +53,10 @@ fetch("https://swastik-v2-backend.onrender.com/api/client", {
   return res.json();
 })
 .then(data => {
+  if (!Array.isArray(data)) {
+    throw new Error("Invalid data format");
+  }
+
   const container = document.getElementById("messages");
   container.innerHTML = "";
 
