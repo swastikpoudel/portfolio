@@ -35,16 +35,31 @@ input, textarea {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 button {
   background: #2563eb;
   color: white;
   border: none;
-  padding: 12px;
+  padding: 12px 20px;
   cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
 }
 button:hover {
   background: #1e40af;
+}
+#attach-image-btn {
+  background: #e5e7eb; /* light gray */
+  color: #374151;
+  padding: 10px 14px;   /* smaller padding */
+  font-size: 14px;      /* smaller text */
+  margin-right: 10px;
+}
+#attach-image-btn:hover {
+  background: #d1d5db;
 }
 #status {
   margin-top: 15px;
@@ -53,11 +68,26 @@ button:hover {
 img {
   width: 120px;
   border-radius: 50%;
+  float: left;               /* back to left like original */
+  margin-right: 20px;        /* space next to form */
+  margin-bottom: 20px;
 }
 footer {
   text-align: center;
   padding: 20px;
   color: #666;
+}
+.button-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+.clearfix::after {           /* to clear float if needed */
+  content: "";
+  display: table;
+  clear: both;
 }
 </style>
 </head>
@@ -92,19 +122,22 @@ footer {
   </ul>
 </section>
 
-<section id="contact">
+<section id="contact" class="clearfix">
   <h2>Reach Out</h2>
 
   <img src="me.jpg" alt="Swastik Poudel">
 
- <form id="contact-form">
-  <input type="text" name="name" placeholder="Your Name" required>
-  <input type="text" name="phone" placeholder="Your Phone Number" required>
-  <input type="email" name="email" placeholder="Your Email" required>
-  <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-  <button type="submit">Send Message</button>
-</form>
-
+  <form id="contact-form">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="text" name="phone" placeholder="Your Phone Number" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+    
+    <div class="button-group">
+      <button type="button" id="attach-image-btn">📎 Attach Image (optional, up to 15MB)</button>
+      <button type="submit">Send Message</button>
+    </div>
+  </form>
 
   <p id="status"></p>
 
@@ -123,46 +156,62 @@ footer {
 <script>
 const form = document.getElementById("contact-form");
 const statusText = document.getElementById("status");
+const attachBtn = document.getElementById("attach-image-btn");
+
+// Hidden file input
+const fileInput = document.createElement("input");
+fileInput.type = "file";
+fileInput.name = "image";
+fileInput.accept = "image/jpeg,image/jpg,image/png,image/gif,image/webp";
+fileInput.style.display = "none";
+form.appendChild(fileInput);
+
+// Open file picker on attach button click
+attachBtn.addEventListener("click", () => {
+  fileInput.click();
+});
+
+// Show attached filename
+fileInput.addEventListener("change", () => {
+  if (fileInput.files && fileInput.files[0]) {
+    statusText.textContent = `📎 Attached: ${fileInput.files[0].name}`;
+    statusText.style.color = "#10b981";
+  }
+});
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  statusText.textContent = "Sending...";
+  statusText.style.color = "#333";
 
-  statusText.innerText = "Sending...";
-
-  const data = {
-    name: form.name.value,
-    phone: form.phone.value,
-    email: form.email.value,
-    message: form.message.value,
-  };
+  const formData = new FormData(form);
 
   try {
     const res = await fetch(
       "https://swastik-v2-backend.onrender.com/api/client",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: formData,
       }
     );
 
     const result = await res.json();
 
     if (res.ok) {
-      statusText.innerText = "✅ Message sent successfully!";
+      statusText.textContent = "✅ Message sent successfully! (Image included if attached)";
+      statusText.style.color = "#10b981";
       form.reset();
+      fileInput.value = "";
     } else {
-      statusText.innerText = result.error || "❌ Failed to send message.";
+      statusText.textContent = result.error || "❌ Failed to send.";
+      statusText.style.color = "#ef4444";
     }
   } catch (err) {
-    statusText.innerText = "❌ Server not reachable.";
-    console.error(err);
+    statusText.textContent = "❌ Server not reachable.";
+    statusText.style.color = "#ef4444";
   }
 });
 </script>
-
 
 </body>
 </html>
