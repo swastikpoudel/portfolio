@@ -5,25 +5,13 @@ import nodemailer from 'nodemailer';
 const router = express.Router();
 const prisma = new PrismaClient();
 
-// Email transporter setup
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
-
-// POST - Save contact form and send email
+// POST - Save contact form
 router.post('/', async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
 
-    // Validate
     if (!name || !email || !message) {
-      return res.status(400).json({ 
-        error: 'Name, email, and message are required' 
-      });
+      return res.status(400).json({ error: 'Name, email, and message are required' });
     }
 
     // Save to Supabase
@@ -36,40 +24,37 @@ router.post('/', async (req, res) => {
       }
     });
 
-    // Send email notification to you
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.EMAIL_USER, // Your email
-      subject: `Portfolio Contact: ${subject || 'New Message'}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject || 'No subject'}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-        <br>
-        <p><em>View all messages in your Supabase dashboard</em></p>
-      `
-    };
+    // Try to send email - don't crash if it fails
+    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+      try {
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+          }
+        });
 
-    await transporter.sendMail(mailOptions);
+        await transporter.sendMail({
+          from: process.env.EMAIL_USER,
+          to: process.env.EMAIL_USER,
+          subject: `Portfolio Contact: ${subject || 'New Message'}`,
+          html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong> ${message}</p>`
+        });
+      } catch (emailErr) {
+        console.log('Email skipped');
+      }
+    }
 
-    res.status(201).json({
-      success: true,
-      message: 'Message sent successfully!',
-      data: contact
-    });
+    res.status(201).json({ success: true, message: 'Message sent!' });
 
   } catch (error) {
-    console.error('Contact form error:', error);
-    res.status(500).json({ 
-      error: 'Failed to send message. Please try again.' 
-    });
+    console.error('Contact error:', error);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
-// GET - Retrieve all contacts (protected in production)
+// GET - All contacts
 router.get('/', async (req, res) => {
   try {
     const contacts = await prisma.contact.findMany({
