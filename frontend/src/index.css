@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  color: #1a1a2e;
+  font-family: 'Inter', sans-serif;
+}
+
+::selection {
+  background: #6366f1;
+  color: white;
+}
