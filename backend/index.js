@@ -7,9 +7,9 @@ import projectRoutes from './routes/projects.js';
 const app = express();
 const prisma = new PrismaClient();
 
-// Middleware
+// Middleware - Allow both www and non-www
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: ['https://swastikpoudel.com.np', 'https://www.swastikpoudel.com.np'],
   credentials: true
 }));
 app.use(express.json());
