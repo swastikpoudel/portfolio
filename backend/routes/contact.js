@@ -41,9 +41,12 @@ router.post('/', async (req, res) => {
           subject: `Portfolio Contact: ${subject || 'New Message'}`,
           html: `<p><strong>Name:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Message:</strong> ${message}</p>`
         });
+        console.log('Email sent successfully!');
       } catch (emailErr) {
-        console.log('Email skipped');
+        console.log('Email error:', emailErr.message);
       }
+    } else {
+      console.log('Email env vars not set');
     }
 
     res.status(201).json({ success: true, message: 'Message sent!' });
