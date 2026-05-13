@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 
 // Middleware - Allow both www and non-www
 app.use(cors({
-  origin: ['https://swastikpoudel.com.np', 'https://www.swastikpoudel.com.np'],
+  origin: ['https://swastikpoudel.com.np', 'https://www.swastikpoudel.com.np', 'https://portfolio-eta-sage-23.vercel.app'],
   credentials: true
 }));
 app.use(express.json());
